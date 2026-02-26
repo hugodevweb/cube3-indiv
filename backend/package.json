@@ -1,0 +1,32 @@
+{
+  "name": "collector-backend",
+  "version": "1.0.0",
+  "description": "Collector.shop REST API – Express + PostgreSQL",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "lint": "eslint src/",
+    "test": "jest --forceExit",
+    "test:coverage": "jest --forceExit --coverage",
+    "load-test": "node -e \"const fs=require('fs');['../load-tests/results.jtl','../load-tests/report'].forEach(p=>{try{fs.rmSync(p,{recursive:true,force:true})}catch(e){}})\" && jmeter -n -t ../load-tests/test-plan.jmx -l ../load-tests/results.jtl -e -o ../load-tests/report"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "pg": "^8.11.5"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coverageThreshold": {
+      "global": {
+        "lines": 80
+      }
+    }
+  }
+}
