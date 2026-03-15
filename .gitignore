@@ -42,3 +42,13 @@ Thumbs.db
 
 # Misc
 *.pem
+
+# Next.js TypeScript
+next-env.d.ts
+*.tsbuildinfo
+
+# Vercel
+.vercel
+
+# Prisma
+prisma/migrations/

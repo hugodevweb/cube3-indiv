@@ -1,0 +1,51 @@
+{
+  "name": "cube3-indiv",
+  "version": "1.0.0",
+  "description": "A C2C marketplace for collectibles demonstrating a robust development workflow with load testing and CI/CD automation.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev -p 3001",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hugodevweb/cube3-indiv.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/hugodevweb/cube3-indiv/issues"
+  },
+  "homepage": "https://github.com/hugodevweb/cube3-indiv#readme",
+  "dependencies": {
+    "@prisma/client": "^6.19.2",
+    "@vercel/postgres": "^0.10.0",
+    "bcryptjs": "^3.0.3",
+    "next": "^16.1.6",
+    "next-auth": "^5.0.0-beta.30",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^25.5.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "autoprefixer": "^10.4.27",
+    "eslint": "^9.39.4",
+    "eslint-config-next": "^16.1.6",
+    "postcss": "^8.5.8",
+    "prisma": "^6.19.2",
+    "tailwindcss": "^4.2.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
