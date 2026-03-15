@@ -25,19 +25,19 @@ Write-Host ""
 switch ($Target) {
     "production" {
         Write-Host "Running full test against Vercel production..." -ForegroundColor Green
-        jmeter.bat -n -t test-plan.jmx -l results.jtl -e -o report
+        cmd /c "jmeter.bat -n -t test-plan.jmx -l results.jtl -e -o report"
     }
     "local" {
         Write-Host "Running smoke test against local server (127.0.0.1:3001)..." -ForegroundColor Green
-        jmeter.bat -n -t test-plan-smoke.jmx -JHOST=127.0.0.1 -JPORT=3001 -JPROTOCOL=http -l results.jtl -e -o report
+        cmd /c "jmeter.bat -n -t test-plan-smoke.jmx -JHOST=127.0.0.1 -JPORT=3001 -JPROTOCOL=http -l results.jtl -e -o report"
     }
     "smoke" {
         Write-Host "Running smoke test against Vercel production..." -ForegroundColor Green
-        jmeter.bat -n -t test-plan-smoke.jmx -l results.jtl -e -o report
+        cmd /c "jmeter.bat -n -t test-plan-smoke.jmx -l results.jtl -e -o report"
     }
     default {
         Write-Host "Running test against custom host: $Target" -ForegroundColor Green
-        jmeter.bat -n -t test-plan.jmx -JHOST=$Target -l results.jtl -e -o report
+        cmd /c "jmeter.bat -n -t test-plan.jmx -JHOST=$Target -l results.jtl -e -o report"
     }
 }
 
