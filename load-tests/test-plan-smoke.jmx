@@ -31,6 +31,44 @@
     <hashTree>
 
       <!-- ================================================================ -->
+      <!-- setUp Thread Group: Log Test Environment (runs once at start)   -->
+      <!-- ================================================================ -->
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="Test Environment Info" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </SetupThreadGroup>
+      <hashTree>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="📍 Test Environment Configuration" enabled="true">
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="script">// Log test environment details
+String protocol = props.get(&quot;PROTOCOL&quot;) ?: &quot;https&quot;
+String host = props.get(&quot;HOST&quot;) ?: &quot;cube3-indiv.vercel.app&quot;
+String port = props.get(&quot;PORT&quot;) ?: &quot;&quot;
+String portSuffix = port.isEmpty() ? &quot;&quot; : &quot;:${port}&quot;
+String targetUrl = &quot;${protocol}://${host}${portSuffix}&quot;
+
+log.info(&quot;===========================================&quot;)
+log.info(&quot;Test Target URL: &quot; + targetUrl)
+log.info(&quot;===========================================&quot;)
+
+SampleResult.setResponseData(&quot;Test Environment:\n\nTarget URL: &quot; + targetUrl + &quot;\nProtocol: &quot; + protocol + &quot;\nHost: &quot; + host + &quot;\nPort: &quot; + (port.isEmpty() ? &quot;default&quot; : port), &quot;UTF-8&quot;)
+SampleResult.setResponseOK()</stringProp>
+          <stringProp name="scriptLanguage">groovy</stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+      </hashTree>
+
+      <!-- ================================================================ -->
       <!-- Thread Group 1: Browse Catalog – 200 concurrent users, 20 loops -->
       <!-- ================================================================ -->
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Browse Catalog" enabled="true">

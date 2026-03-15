@@ -119,6 +119,18 @@ jmeter -n -t test-plan-smoke.jmx -JHOST=127.0.0.1 -JPORT=3001 -JPROTOCOL=http -l
 
 After the test completes, open the HTML report:
 
+**The report now includes the test environment details!** 🎯
+
+Look for the "📍 Test Environment Configuration" entry in the report - it will show you:
+- Target URL (e.g., `http://127.0.0.1:3001` or `https://cube3-indiv.vercel.app`)
+- Protocol used
+- Host
+- Port (if specified)
+
+This makes it easy to verify which environment was tested when reviewing results.
+
+### Opening the Report
+
 ```bash
 # Windows
 start report/index.html
