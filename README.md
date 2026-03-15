@@ -2,15 +2,17 @@
 
 A C2C marketplace for collectibles demonstrating a robust development workflow with load testing and CI/CD automation.
 
-## Stack
+## Stack (Migrated to Vercel)
 
 | Layer | Technology |
 |---|---|
-| Backend | Node.js / Express |
-| Database | PostgreSQL 15 |
-| Frontend | Vanilla JS SPA |
-| Infrastructure | Docker / Docker Compose |
-| CI/CD | GitHub Actions |
+| Framework | Next.js 14 (App Router) |
+| Backend | Next.js API Routes (Serverless) |
+| Database | Neon Postgres (Serverless) |
+| Frontend | React + TypeScript + Tailwind CSS |
+| ORM | Prisma |
+| Authentication | Auth.js (NextAuth v5) |
+| CI/CD | GitHub Actions + Vercel |
 | Load Testing | Apache JMeter |
 
 ## Getting Started
