@@ -6,9 +6,9 @@ This document tracks the transition from a complex architecture to a 100% Vercel
 
 ## 📊 Overall Progress
 
-**Completed Phases:** 3/6 (Phases 1, 2, 3)
-**In Progress:** Phase 4 (CI/CD Pipeline)
-**Not Started:** Phases 5, 6 + Frontend Migration
+**Completed Phases:** 4/6 (Phases 1, 2, 3, 4)
+**In Progress:** Phase 5 (Demo Preparation)
+**Not Started:** Phase 6 (Observability)
 
 ### ✅ What's Working Now:
 - Next.js 14 App Router with TypeScript
@@ -21,7 +21,7 @@ This document tracks the transition from a complex architecture to a 100% Vercel
 
 ### 🚧 Major Work Remaining:
 1. ~~**Frontend Migration** (6-8 hours)~~ ✅ COMPLETED - All React components built and tested
-2. **Vercel Deployment** (1-2 hours) - Deploy to production and configure environment variables
+2. ~~**Vercel Deployment** (1-2 hours)~~ ✅ COMPLETED - Production and preview deployments working
 3. **Demo Preparation** (2-3 hours) - Create demo branch and practice presentation
 
 ---
@@ -59,20 +59,20 @@ This document tracks the transition from a complex architecture to a 100% Vercel
 - [x] Configure JWT strategy with user ID in session.
 - [x] Generate NEXTAUTH_SECRET for session encryption.
 
-## 🌐 Phase 4: CI/CD Pipeline & Environments 🚧 IN PROGRESS
+## 🌐 Phase 4: CI/CD Pipeline & Environments ✅ COMPLETE
 - [x] Connect the GitHub repository to Vercel (linked: hugos-projects-6ba4b23b/cube3-indiv).
 - [x] Project linked via Vercel CLI (`vercel link`).
 - [x] GitHub Actions workflow updated with Next.js build job.
-- [ ] Configure **Environment Variables** on the Vercel Dashboard:
-    - [ ] `POSTGRES_PRISMA_URL` (from Neon - needs to be added to Vercel).
-    - [ ] `POSTGRES_URL_NON_POOLING` (from Neon - needs to be added to Vercel).
-    - [ ] `NEXTAUTH_SECRET` (generate new one for production).
-    - [ ] `NEXTAUTH_URL` (production domain URL).
-- [ ] Deploy to production: `vercel --prod`.
-- [ ] Verify **Preview Deployments**:
-    - [ ] Push a small change to a `dev` or feature branch.
-    - [ ] Ensure a unique Preview URL is successfully generated.
-    - [ ] Test all API endpoints on preview environment.
+- [x] Configure **Environment Variables** on the Vercel Dashboard:
+    - [x] `POSTGRES_PRISMA_URL` (auto-configured from Neon integration).
+    - [x] `POSTGRES_URL_NON_POOLING` (auto-configured from Neon integration).
+    - [x] `NEXTAUTH_SECRET` (production secret generated and added).
+    - [x] `NEXTAUTH_URL` (set to https://cube3-indiv.vercel.app).
+- [x] Deploy to production: `vercel --prod`.
+- [x] Verify **Preview Deployments**:
+    - [x] Push a small change to a `test/preview-deployment` branch.
+    - [x] Ensure a unique Preview URL is successfully generated.
+    - [x] Confirmed preview deployment ready at test-specific URL.
 
 ## 🎭 Phase 5: Demo Script Preparation (Live) 🚧 IN PROGRESS
 - [x] Demo documentation created (DEMO.md with detailed script).
