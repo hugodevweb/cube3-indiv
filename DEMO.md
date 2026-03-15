@@ -3,7 +3,33 @@
 ## Scenario
 Marketing requests changing the "Vendre" button color to improve conversion.
 
-## Demo Steps (< 3 minutes)
+## Pre-Demo Preparation
+
+### Before the Presentation:
+
+1. **Disable Vercel Protection** (if enabled)
+   - Go to: https://vercel.com/hugos-projects-6ba4b23b/cube3-indiv/settings/deployment-protection
+   - Temporarily disable authentication for public demo access
+
+2. **Run a Load Test** (to have fresh results ready)
+   ```bash
+   cd load-tests
+   .\run-test.ps1 -Target smoke
+   ```
+   - This generates `report/index.html` with current performance metrics
+   - Takes ~20 seconds to complete
+   - Keep the report open in a browser tab
+
+3. **Prepare Browser Tabs**
+   - Production: https://cube3-indiv.vercel.app
+   - GitHub repo: https://github.com/hugodevweb/cube3-indiv
+   - Vercel dashboard: https://vercel.com/hugos-projects-6ba4b23b/cube3-indiv
+   - JMeter report: `file:///C:/VS_code/CESI/cube3-indiv/load-tests/report/index.html`
+
+4. **Test Login Credentials**
+   - Verify `seller@demo.com / demo123` works on production
+
+## Demo Steps (< 4 minutes)
 
 ### 1. Show Production (30s)
 - Open: https://collector-shop.vercel.app
@@ -30,6 +56,31 @@ Marketing requests changing the "Vendre" button color to improve conversion.
 - Button is now orange in production
 - Point out deployment time (< 60 seconds)
 
+### 5. Load Testing & Performance (60s) 🚀
+**Demonstrate serverless scalability with Apache JMeter**
+
+**Option A: Show Pre-generated Report** (30s)
+- Open: `load-tests/report/index.html`
+- Highlight key metrics:
+  - **750+ concurrent users** handled successfully
+  - **Response times**: ~100-500ms average
+  - **0% error rate** - All requests succeeded
+  - **Environment info**: Shows exact URL tested
+- Emphasize: "Serverless architecture automatically scales to handle traffic spikes"
+
+**Option B: Run Live Test** (60s) - If time permits
+```bash
+cd load-tests
+.\run-test.ps1 -Target smoke
+```
+- Show test running in real-time
+- Point out: "Testing against production right now"
+- Report auto-opens showing:
+  - Throughput (requests/sec)
+  - Response time distribution
+  - Success rate
+- Emphasize: "No server provisioning needed - Vercel scales automatically"
+
 ## Talking Points
 - **Zero downtime deployment** - Users never see the site go down
 - **Isolated testing environments** - Every branch gets its own URL
@@ -38,6 +89,9 @@ Marketing requests changing the "Vendre" button color to improve conversion.
 - **Instant rollback** - Can revert in seconds if needed
 - **Preview URLs** - Share with stakeholders before merging
 - **Database migrations** - Handled automatically via Prisma
+- **Serverless auto-scaling** - Handles traffic spikes without manual intervention
+- **Load tested** - Validated with Apache JMeter (750+ concurrent users)
+- **Performance monitoring** - Sub-second response times in production
 
 ## Backup Plan
 If network fails:
@@ -45,12 +99,25 @@ If network fails:
 2. Show screenshots comparing preview vs production
 3. Walk through the GitHub Actions workflow file
 4. Show Vercel dashboard screenshots
+5. **Show pre-generated JMeter report** - `load-tests/report/index.html` (always available offline)
 
 ## Technical Details to Highlight
-- **App Router** - Modern Next.js architecture
-- **Server Components** - Better performance, SEO
-- **Prisma ORM** - Type-safe database queries
-- **Auth.js** - Secure authentication
-- **Vercel Postgres** - Managed database with connection pooling
-- **TypeScript** - Type safety across the stack
-- **Tailwind CSS** - Rapid UI development
+
+### Architecture & Framework
+- **Next.js 14 App Router** - Modern React framework with server-side rendering
+- **Server Components** - Better performance, automatic code splitting, SEO optimization
+- **TypeScript** - Full type safety across frontend and backend
+- **Tailwind CSS** - Utility-first CSS for rapid, consistent UI development
+
+### Backend & Data
+- **Serverless API Routes** - Auto-scaling Next.js API endpoints
+- **Prisma ORM** - Type-safe database queries with automatic migrations
+- **Neon Postgres** - Serverless PostgreSQL with connection pooling
+- **Auth.js (NextAuth v5)** - Production-ready authentication system
+
+### DevOps & Quality Assurance
+- **GitHub Actions** - Automated CI pipeline with build validation
+- **Vercel Deployment** - Edge network with automatic HTTPS, CDN
+- **Preview Deployments** - Isolated environment per branch
+- **Apache JMeter** - Load testing with 750+ concurrent user simulation
+- **Environment tracking** - Test reports include target URL for traceability
