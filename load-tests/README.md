@@ -33,7 +33,51 @@ The full load test (`test-plan.jmx`) is configured with three thread groups:
 
 ## Running the Load Test
 
-### Against Vercel Production
+### Easy Way (Using Helper Scripts) 🚀
+
+**Windows Batch:**
+```cmd
+# Vercel production (full test)
+run-test.bat
+
+# Local development (smoke test)
+run-test.bat local
+
+# Smoke test on production
+run-test.bat smoke
+
+# Custom host
+run-test.bat your-preview-url.vercel.app
+```
+
+**PowerShell:**
+```powershell
+# Vercel production (full test)
+.\run-test.ps1
+
+# Local development (smoke test)
+.\run-test.ps1 -Target local
+
+# Smoke test on production
+.\run-test.ps1 -Target smoke
+
+# Custom host
+.\run-test.ps1 -Target your-preview-url.vercel.app
+```
+
+The helper scripts automatically:
+- ✅ Clean previous results
+- ✅ Run the appropriate test
+- ✅ Open the HTML report when done
+
+### Manual Way (If You Prefer)
+
+**Important:** Always delete previous results first:
+```bash
+rm -rf report results.jtl
+```
+
+**Against Vercel Production:**
 
 ```bash
 jmeter -n -t test-plan.jmx -l results.jtl -e -o report
