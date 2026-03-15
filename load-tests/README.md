@@ -7,9 +7,14 @@ This directory contains JMeter load tests for the Collector.shop application run
 - [Apache JMeter](https://jmeter.apache.org/download_jmeter.cgi) 5.6+ installed
 - Access to the deployed application on Vercel
 
+## Test Files
+
+- **`test-plan.jmx`**: Full load test (750 concurrent users) - Use for production/staging
+- **`test-plan-smoke.jmx`**: Smoke test (10 users, 5 total requests) - Use for local development
+
 ## Test Configuration
 
-The load test is configured with three thread groups:
+The full load test (`test-plan.jmx`) is configured with three thread groups:
 
 1. **Browse Catalog** (GET /api/items)
    - 500 concurrent users
@@ -44,9 +49,17 @@ jmeter -n -t test-plan.jmx -JHOST=cube3-indiv-git-test-preview-deployment-hugos-
 
 ### Against Local Development Server
 
+**IMPORTANT**: For local testing, you MUST specify the PORT separately (not in the HOST):
+
 ```bash
-jmeter -n -t test-plan.jmx -JHOST=localhost:3001 -JPROTOCOL=http -l results.jtl -e -o report
+# Full load test (750 concurrent users)
+jmeter -n -t test-plan.jmx -JHOST=127.0.0.1 -JPORT=3001 -JPROTOCOL=http -l results.jtl -e -o report
+
+# Smoke test (10 users - recommended for local)
+jmeter -n -t test-plan-smoke.jmx -JHOST=127.0.0.1 -JPORT=3001 -JPROTOCOL=http -l results.jtl -e -o report
 ```
+
+**Why 127.0.0.1 instead of localhost?** - Avoids IPv6 resolution issues with JMeter.
 
 ## Command Options Explained
 
