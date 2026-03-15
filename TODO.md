@@ -20,7 +20,7 @@ This document tracks the transition from a complex architecture to a 100% Vercel
 - Vercel project linked
 
 ### 🚧 Major Work Remaining:
-1. **Frontend Migration** (6-8 hours) - Convert vanilla JS SPA to React components
+1. ~~**Frontend Migration** (6-8 hours)~~ ✅ COMPLETED - All React components built and tested
 2. **Vercel Deployment** (1-2 hours) - Deploy to production and configure environment variables
 3. **Demo Preparation** (2-3 hours) - Create demo branch and practice presentation
 
@@ -74,12 +74,12 @@ This document tracks the transition from a complex architecture to a 100% Vercel
     - [ ] Ensure a unique Preview URL is successfully generated.
     - [ ] Test all API endpoints on preview environment.
 
-## 🎭 Phase 5: Demo Script Preparation (Live) ⏳ NOT STARTED
+## 🎭 Phase 5: Demo Script Preparation (Live) 🚧 IN PROGRESS
 - [x] Demo documentation created (DEMO.md with detailed script).
-- [ ] **Build frontend components first** (required before demo):
-    - [ ] Migrate frontend/index.html to React components.
-    - [ ] Create ItemCard, ItemGrid, Navigation, SellModal components.
-    - [ ] Implement client-side interactivity (search, filters, favorites).
+- [x] **Build frontend components first** (required before demo):
+    - [x] Migrate frontend/index.html to React components.
+    - [x] Create ItemCard, ItemGrid, Navigation, SellModal components.
+    - [x] Implement client-side interactivity (search, filters, favorites).
 - [ ] Select a visible UI change for the live demo (e.g., updating the "Vendre" button color from teal to orange).
 - [ ] Prepare the Git branch `feat/ui-hotfix-demo`.
 - [ ] Practice the full flow:
