@@ -1,113 +1,96 @@
-# TODO – Collector.shop POC
+# 🚀 Migration Plan: Collector.shop (Demo Version)
 
-> Demo-oriented implementation. Focus on showing the full workflow, not production-readiness.
-
----
-
-## 1. Project Scaffold
-
-- [x] Initialize the repo with a `README.md` and `.gitignore`
-- [x] Create the folder structure:
-  ```
-  /backend
-  /frontend
-  /infra
-  /load-tests
-  .github/workflows/
-  ```
-- [x] Add a `docker-compose.yml` at the root (backend + PostgreSQL)
+This document tracks the transition from a complex architecture to a 100% Vercel-native solution to demonstrate a fluid CI/CD pipeline during the final presentation.
 
 ---
 
-## 2. Backend (Node.js / Express) – ✅ Fixed
+## 📊 Overall Progress
 
-- [x] `npm init` inside `/backend`, install `express`, `pg`, `dotenv`
-- [x] Connect to PostgreSQL using a `DATABASE_URL` env variable
-- [x] Create the `items` table migration (title, description, price, category, photo_url, status)
-- [x] Implement `POST /api/items`
-  - [x] Validate required fields (title, description, price, category, photo_url)
-  - [x] Set default status to `"En attente de contrôle"`
-  - [x] Return `201` with the created item
-- [x] Implement `GET /api/items` (list all items, for the frontend & load test)
-- [x] Implement `GET /health` → `{ status: "ok" }`
-- [x] Implement `GET /metrics` → basic stats (item count, uptime)
-- [x] Write unit tests (Jest or Mocha) – aim for >80% coverage
-  - [x] Test `POST /api/items` validation (missing fields, missing photo_url)
-  - [x] Test `GET /health` response
+**Completed Phases:** 3/6 (Phases 1, 2, 3)
+**In Progress:** Phase 4 (CI/CD Pipeline)
+**Not Started:** Phases 5, 6 + Frontend Migration
 
----
+### ✅ What's Working Now:
+- Next.js 14 App Router with TypeScript
+- All API routes functional (/api/items, /api/health, /api/metrics, /api/user/profile)
+- Neon Postgres database connected and seeded with demo data
+- Auth.js authentication configured with 2 demo users
+- Local development server running on http://localhost:3001
+- GitHub Actions workflow updated
+- Vercel project linked
 
-## 3. Frontend (Minimal – Vanilla JS)
-
-- [x] Single page with two sections:
-  - **Item listing:** fetch and display `GET /api/items`
-  - **Submit form:** fields for title, description, price, category, photo_url → calls `POST /api/items`
-- [x] Show a success/error message after form submission
-- [x] Serve static files from Express (or a separate nginx container)
+### 🚧 Major Work Remaining:
+1. **Frontend Migration** (6-8 hours) - Convert vanilla JS SPA to React components
+2. **Vercel Deployment** (1-2 hours) - Deploy to production and configure environment variables
+3. **Demo Preparation** (2-3 hours) - Create demo branch and practice presentation
 
 ---
 
-## 4. Docker & Infrastructure
+## 🏗️ Phase 1: Backend Migration (Serverless) ✅ COMPLETE
+- [x] Initialize the **Next.js** project (Next.js 14 with App Router, TypeScript, Tailwind).
+- [x] Map and create the `/app/api/` route structure:
+    - [x] `GET /api/items` (Catalog/Marketplace) - Returns 10 seeded items.
+    - [x] `POST /api/items` (Item listing - Key User Story) - With Zod validation.
+    - [x] `GET /api/user/profile` (Personal PII data) - Protected route.
+    - [x] `GET /api/health` (Health check with DB connection test).
+    - [x] `GET /api/metrics` (Item and user count statistics).
+- [x] Port business logic from old microservices to these functions.
+- [x] Implement validation middlewares (e.g., **Zod**) for API payloads.
 
-- [x] Write a `Dockerfile` for the backend (multi-stage is a plus)
-- [x] Configure `docker-compose.yml`:
-  - `db` service (postgres:15, with init SQL or volume for migrations)
-  - `backend` service (depends on `db`, exposes port 3000)
-  - (Optional) `frontend` service (nginx serving the static SPA)
-- [x] Add a `.env.example` with required variables (`DATABASE_URL`, `PORT`)
+## 🗄️ Phase 2: Persistence & Data (Neon Postgres) ✅ COMPLETE
+- [x] Activate **Neon Postgres** (Vercel's official partner, EU-West region).
+- [x] Configure the ORM (**Prisma**):
+    - [x] Install dependencies (@prisma/client, prisma).
+    - [x] Create the core schema (Users, Items, Accounts, Sessions, VerificationToken).
+    - [x] Run the initial migration: `npx prisma db push`.
+- [x] Create a **Seed script** (`prisma/seed.ts`):
+    - [x] Inject 10 collector items (Jordans, Pokémon cards, Rolex, Supreme, Batman comics, etc.).
+    - [x] Create 2 demo users: seller@demo.com & buyer@demo.com (password: demo123).
+- [x] Test database connection and API endpoints successfully.
 
----
+## 🔐 Phase 3: Authentication (Auth.js / NextAuth) ✅ COMPLETE
+- [x] Install and configure **Auth.js v5** (next-auth@beta).
+- [x] Setup the `CredentialsProvider` with bcrypt password hashing.
+- [x] Create two test profiles in seed script:
+    - [x] `seller@demo.com` / demo123
+    - [x] `buyer@demo.com` / demo123
+- [x] Create sign-in page at `/auth/signin`.
+- [x] Secure the "List an Item" API routes with session checks (POST /api/items protected).
+- [x] Configure JWT strategy with user ID in session.
+- [x] Generate NEXTAUTH_SECRET for session encryption.
 
-## 5. CI/CD Pipeline (GitHub Actions)
+## 🌐 Phase 4: CI/CD Pipeline & Environments 🚧 IN PROGRESS
+- [x] Connect the GitHub repository to Vercel (linked: hugos-projects-6ba4b23b/cube3-indiv).
+- [x] Project linked via Vercel CLI (`vercel link`).
+- [x] GitHub Actions workflow updated with Next.js build job.
+- [ ] Configure **Environment Variables** on the Vercel Dashboard:
+    - [ ] `POSTGRES_PRISMA_URL` (from Neon - needs to be added to Vercel).
+    - [ ] `POSTGRES_URL_NON_POOLING` (from Neon - needs to be added to Vercel).
+    - [ ] `NEXTAUTH_SECRET` (generate new one for production).
+    - [ ] `NEXTAUTH_URL` (production domain URL).
+- [ ] Deploy to production: `vercel --prod`.
+- [ ] Verify **Preview Deployments**:
+    - [ ] Push a small change to a `dev` or feature branch.
+    - [ ] Ensure a unique Preview URL is successfully generated.
+    - [ ] Test all API endpoints on preview environment.
 
-File: `.github/workflows/main.yml`
+## 🎭 Phase 5: Demo Script Preparation (Live) ⏳ NOT STARTED
+- [x] Demo documentation created (DEMO.md with detailed script).
+- [ ] **Build frontend components first** (required before demo):
+    - [ ] Migrate frontend/index.html to React components.
+    - [ ] Create ItemCard, ItemGrid, Navigation, SellModal components.
+    - [ ] Implement client-side interactivity (search, filters, favorites).
+- [ ] Select a visible UI change for the live demo (e.g., updating the "Vendre" button color from teal to orange).
+- [ ] Prepare the Git branch `feat/ui-hotfix-demo`.
+- [ ] Practice the full flow:
+    - Login -> Browse items -> Create a listing on the **Preview URL** -> Merge -> Show **Production** updated.
+- [ ] Prepare fallback materials (screenshots, video recording) in case of network issues.
 
-- [x] **Job 1 – Lint & Test**
-  - [x] Checkout code
-  - [x] Install dependencies (`npm ci`)
-  - [x] Run linter (`eslint`)
-  - [x] Run tests with coverage report (`npm test -- --coverage`)
-  - [x] Fail if coverage < 80%
-- [x] **Job 2 – Security Scan** (depends on Job 1)
-  - [x] Run `npm audit --audit-level=high`
-- [x] **Job 3 – Build Docker Image** (depends on Job 2)
-  - [x] `docker build -t collector-backend:${{ github.sha }} .`
-- [x] **Job 4 – Mock Deploy** (depends on Job 3)
-  - [x] Echo a simulated deployment message to staging
-  - [x] (Optional) Push image to GitHub Container Registry
-
----
-
-## 6. Load Testing (JMeter)
-
-File: `load-tests/test-plan.jmx`
-
-- [x] Create a JMeter test plan with two Thread Groups:
-  - **Browse catalog:** 50 concurrent users → `GET /api/items` (loop 10x)
-  - **Post items:** 10 concurrent users → `POST /api/items` with sample JSON body
-- [x] Add listeners: Summary Report, Response Time Graph
-- [x] Configure a JMeter HTML Report output (`-e -o ./report`)
-- [x] Add a CI step (or `npm script`) to run JMeter headless and publish the HTML report as a pipeline artifact
-
----
-
-## 7. Observability (Basic)
-
-- [ ] `/health` endpoint (see Backend section)
-- [ ] `/metrics` endpoint returning JSON with:
-  - `uptime_seconds`
-  - `total_items`
-  - `db_status`
-- [ ] (Optional) Add a `docker-compose.monitoring.yml` with InfluxDB + Grafana
-  - [ ] Configure JMeter Backend Listener to push results to InfluxDB
-  - [ ] Import a Grafana dashboard for P95 / error rate visualization
-
----
-
-## 8. Demo Checklist (before presenting)
-
-- [ ] `docker-compose up` starts everything cleanly from scratch
-- [ ] Can submit an item via the frontend form → appears in the list
-- [ ] CI pipeline passes on `main` branch (green badge)
-- [ ] JMeter HTML report is generated and readable
-- [ ] `/health` and `/metrics` return valid JSON
+## 📊 Phase 6: Bonus Observability (Slide 12) ⏳ NOT STARTED
+- [ ] Install analytics packages:
+    - [ ] `npm install @vercel/analytics @vercel/speed-insights`
+- [ ] Update `app/layout.tsx` to include Analytics and SpeedInsights components.
+- [ ] Enable **Vercel Analytics** in Vercel Dashboard to display Core Web Vitals.
+- [ ] Enable **Speed Insights** in Vercel Dashboard.
+- [ ] Ensure **Runtime Logs** are easily accessible to show the jury how you monitor errors in real-time.
+- [ ] Prepare screenshot of analytics dashboard for presentation.
