@@ -29,7 +29,9 @@
       "Bash(cmd //c \"jmeter.bat -n -t test-plan.jmx -JHOST=localhost:3001 -JPROTOCOL=http -l results.jtl -e -o report\")",
       "Bash(start:*)",
       "Bash(cmd //c:*)",
-      "Bash(npm run quality:*)"
+      "Bash(npm run quality:*)",
+      "Bash(npm ls:*)",
+      "Bash(npm audit fix:*)"
     ]
   }
 }
