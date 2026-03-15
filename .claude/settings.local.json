@@ -23,7 +23,13 @@
       "Bash(cmd //c \"taskkill /PID 33036 /F\")",
       "Bash(node -e:*)",
       "Bash(git checkout:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(jmeter:*)",
+      "Bash(where:*)",
+      "Bash(cmd //c \"jmeter.bat -n -t test-plan.jmx -JHOST=localhost:3001 -JPROTOCOL=http -l results.jtl -e -o report\")",
+      "Bash(start:*)",
+      "Bash(cmd //c:*)",
+      "Bash(npm run quality:*)"
     ]
   }
 }

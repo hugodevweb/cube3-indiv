@@ -20,8 +20,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Test coverage
+# Test coverage & Quality Reports
 coverage/
+quality-reports/
 
 # JMeter reports
 load-tests/report/
