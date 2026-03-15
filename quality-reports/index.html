@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Quality Report - Collector.shop</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .header {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #2d3748;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    .subtitle {
+      color: #718096;
+      font-size: 1rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card h2 {
+      color: #2d3748;
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .icon {
+      font-size: 1.5rem;
+    }
+    .metric {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0.75rem 0;
+      padding: 0.5rem;
+      background: #f7fafc;
+      border-radius: 6px;
+    }
+    .metric-label {
+      color: #4a5568;
+      font-weight: 500;
+    }
+    .metric-value {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .percentage {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+    }
+    .links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .timestamp {
+      text-align: center;
+      color: white;
+      margin-top: 2rem;
+      font-size: 0.875rem;
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      background: #48bb78;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>📊 Code Quality Report</h1>
+      <p class="subtitle">Collector.shop - Automated Quality Pipeline</p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2><span class="icon">🧪</span> Test Coverage</h2>
+        <div class="metric">
+          <span class="metric-label">Lines</span>
+          <span class="metric-value percentage">2.1%</span>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Statements</span>
+          <span class="metric-value percentage">2.0%</span>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Functions</span>
+          <span class="metric-value percentage">2.5%</span>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Branches</span>
+          <span class="metric-value percentage">11.3%</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2><span class="icon">✅</span> Quality Checks</h2>
+        <div class="metric">
+          <span class="metric-label">TypeScript</span>
+          <span class="badge">PASSED</span>
+        </div>
+        <div class="metric">
+          <span class="metric-label">ESLint</span>
+          <span class="badge">PASSED</span>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Tests</span>
+          <span class="badge">PASSED</span>
+        </div>
+        <div class="metric">
+          <span class="metric-label">Build</span>
+          <span class="badge">PASSED</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2><span class="icon">📈</span> Reports</h2>
+        <p style="color: #718096; margin-bottom: 1rem;">Detailed analysis reports</p>
+        <div class="links">
+          <a href="../coverage/index.html" class="btn">View Coverage Report</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="timestamp">
+      Generated on Monday, March 16, 2026 at 12:40 AM
+    </div>
+  </div>
+</body>
+</html>
