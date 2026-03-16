@@ -31,7 +31,11 @@
       "Bash(cmd //c:*)",
       "Bash(npm run quality:*)",
       "Bash(npm ls:*)",
-      "Bash(npm audit fix:*)"
+      "Bash(npm audit fix:*)",
+      "Bash(npm run lint:*)",
+      "Bash(npx next:*)",
+      "Bash(npx eslint:*)",
+      "Bash(git rm:*)"
     ]
   }
 }
