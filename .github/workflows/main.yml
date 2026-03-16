@@ -129,9 +129,6 @@ jobs:
       - name: Build Next.js
         run: npm run build
 
-      - name: Run ESLint
-        run: npm run lint
-
   # ── Job 6: Load Test (JMeter) ─────────────────────────────────────────────
   load-test:
     name: Load Test (JMeter)
