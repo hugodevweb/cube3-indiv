@@ -101,6 +101,53 @@ If network fails:
 4. Show Vercel dashboard screenshots
 5. **Show pre-generated JMeter report** - `load-tests/report/index.html` (always available offline)
 
+## CI/CD Pipeline Walkthrough
+
+The pipeline runs on every push/PR to `master` and chains **7 jobs** sequentially — each one must pass before the next starts.
+
+### Job 1 — Lint & Test (backend)
+- Runs inside the `backend/` folder on Node.js 20
+- **`npm run lint`** — ESLint checks code style and catches obvious errors
+- **`npm test -- --coverage`** — Jest runs all unit tests and produces a coverage report
+- Blocks the entire pipeline if linting or any test fails
+
+### Job 2 — Security Scan (needs: Job 1)
+- **`npm audit --audit-level=high`** — scans all backend npm dependencies for known vulnerabilities
+- Only HIGH and CRITICAL severity issues cause the job to fail
+- Ensures no dangerous packages ship to production
+
+### Job 3 — Build Docker Image (needs: Job 2)
+- Builds the backend Docker image using `backend/Dockerfile`
+- Tags the image with the Git commit SHA (`collector-backend:<sha>`) for full traceability
+- Verifies the image actually compiles and assembles correctly
+
+### Job 4 — Mock Deploy (needs: Job 3)
+- Simulates a deployment to a staging environment by printing the image tag, branch, and actor
+- Acts as a gate: in a real setup this step would push the image to a registry (GHCR config is commented in the file) and trigger a staging deploy
+- Keeps the pipeline structure ready for a real deploy without additional changes
+
+### Job 5 — Build & Test Next.js (needs: Job 4)
+- Works on the **frontend** (root `package.json`)
+- **`npx prisma generate`** — generates the typed Prisma client so TypeScript is happy
+- **`npm run build`** — full Next.js production build; catches type errors and missing imports
+- **`npm run lint`** — ESLint pass on the frontend code
+
+### Job 6 — Code Quality & Coverage (needs: Job 5)
+- **`npm run quality`** — runs the full quality pipeline (tests + coverage thresholds + reporters)
+- Uploads two artifacts for later inspection:
+  - `coverage-report/` — HTML/LCOV coverage data
+  - `quality-report/` — additional quality metrics
+- The `if: always()` flag means reports are uploaded even when the job fails, so you can diagnose issues
+
+### Job 7 — Load Test / JMeter (needs: Job 6)
+- Spins up the full backend stack with **`docker compose up -d --wait`**
+- Downloads Apache JMeter 5.6.3 and adds it to `PATH`
+- Runs the JMX test plan headlessly against `localhost:3000` (backend) and `localhost:8080` (frontend)
+- Produces a full HTML report (`load-tests/report/`) uploaded as an artifact
+- Validates that the application can handle real traffic before the pipeline is considered green
+
+---
+
 ## Technical Details to Highlight
 
 ### Architecture & Framework
