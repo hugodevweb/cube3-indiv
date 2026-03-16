@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
 import { prisma } from '@/lib/prisma'
+import { auth } from '@/auth'
 
 const ItemSchema = z.object({
   title: z.string().min(1).max(255),
@@ -23,6 +24,11 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
+  const session = await auth()
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
   try {
     const body = await req.json()
     const validatedData = ItemSchema.parse(body)
@@ -34,6 +40,7 @@ export async function POST(req: Request) {
         price: validatedData.price,
         category: validatedData.category,
         photoUrl: validatedData.photo_url,
+        userId: parseInt(session.user.id),
       }
     })
 

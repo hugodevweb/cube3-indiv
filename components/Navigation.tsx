@@ -1,5 +1,7 @@
 'use client';
 
+import { useSession, signOut } from 'next-auth/react';
+
 interface NavigationProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
@@ -7,6 +9,13 @@ interface NavigationProps {
 }
 
 export default function Navigation({ searchQuery, onSearchChange, onSellClick }: NavigationProps) {
+  const { data: session } = useSession();
+
+  const userInitial = session?.user?.name?.[0]?.toUpperCase()
+    ?? session?.user?.email?.[0]?.toUpperCase()
+    ?? '?';
+  const userName = session?.user?.name ?? session?.user?.email ?? '';
+
   return (
     <nav className="sticky top-0 z-50 bg-surface border-b border-border h-16 flex items-center px-8 gap-5 shadow-sm">
       {/* Logo */}
@@ -42,7 +51,7 @@ export default function Navigation({ searchQuery, onSearchChange, onSellClick }:
         />
       </div>
 
-      {/* Nav links - hidden on mobile */}
+      {/* Nav links + auth – hidden on mobile */}
       <div className="hidden md:flex items-center gap-1 flex-shrink-0 ml-auto">
         <a
           href="#"
@@ -58,6 +67,35 @@ export default function Navigation({ searchQuery, onSearchChange, onSellClick }:
         >
           Comment ça marche
         </a>
+
+        {session ? (
+          <div className="flex items-center gap-2 ml-3 pl-3 border-l border-border">
+            {/* Avatar */}
+            <div
+              className="w-8 h-8 rounded-full bg-accent flex items-center justify-center
+                         text-white text-sm font-bold flex-shrink-0"
+              title={userName}
+            >
+              {userInitial}
+            </div>
+            <span className="text-sm font-medium text-text max-w-[120px] truncate">{userName}</span>
+            <button
+              onClick={() => signOut({ callbackUrl: '/' })}
+              className="px-3 py-1.5 rounded-sm text-sm font-medium text-text-secondary
+                        transition-all duration-150 hover:bg-background hover:text-text whitespace-nowrap cursor-pointer border-none bg-transparent"
+            >
+              Déconnexion
+            </button>
+          </div>
+        ) : (
+          <a
+            href="/auth/signin"
+            className="ml-3 pl-3 border-l border-border px-3 py-1.5 rounded-sm text-sm font-medium
+                      text-accent no-underline transition-all duration-150 hover:bg-background whitespace-nowrap"
+          >
+            Se connecter
+          </a>
+        )}
       </div>
 
       {/* Sell button */}

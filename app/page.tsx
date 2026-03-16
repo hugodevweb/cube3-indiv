@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import Navigation from '@/components/Navigation';
 import CategoryBar from '@/components/CategoryBar';
 import ItemGrid from '@/components/ItemGrid';
@@ -10,6 +12,8 @@ import { Item } from '@/components/ItemCard';
 type SortMode = 'newest' | 'price-asc' | 'price-desc';
 
 export default function HomePage() {
+  const { data: session } = useSession();
+  const router = useRouter();
   const [allItems, setAllItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState('all');
@@ -17,6 +21,14 @@ export default function HomePage() {
   const [sortMode, setSortMode] = useState<SortMode>('newest');
   const [favorites, setFavorites] = useState<Set<number>>(new Set());
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleSellClick = () => {
+    if (!session) {
+      router.push('/auth/signin?callbackUrl=/');
+    } else {
+      setIsModalOpen(true);
+    }
+  };
 
   // Load favorites from localStorage on mount
   useEffect(() => {
@@ -104,7 +116,7 @@ export default function HomePage() {
       <Navigation
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
-        onSellClick={() => setIsModalOpen(true)}
+        onSellClick={handleSellClick}
       />
 
       {/* Category Bar */}
