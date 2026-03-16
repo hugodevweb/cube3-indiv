@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 
 export interface Item {
   id: number;
@@ -38,10 +39,11 @@ export default function ItemCard({ item, isFavorite = false, onFavoriteToggle }:
             📦
           </div>
         ) : (
-          <img
+          <Image
             src={item.photoUrl}
             alt={item.title}
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            fill
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
             onError={() => setImageError(true)}
           />
         )}

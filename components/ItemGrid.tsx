@@ -36,7 +36,7 @@ export default function ItemGrid({ items, loading = false, favorites, onFavorite
         </svg>
         <p className="text-[0.95rem] font-medium">Aucun article trouvé</p>
         <small className="text-sm mt-1.5 block text-text-muted">
-          Essayez d'ajuster vos filtres ou votre recherche
+          Essayez d&apos;ajuster vos filtres ou votre recherche
         </small>
       </div>
     );
