@@ -39,7 +39,8 @@
       "Bash(npm run test:coverage:*)",
       "Bash(git branch:*)",
       "Bash(gh:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(chmod:*)"
     ]
   }
 }
