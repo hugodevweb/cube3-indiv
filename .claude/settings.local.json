@@ -35,7 +35,10 @@
       "Bash(npm run lint:*)",
       "Bash(npx next:*)",
       "Bash(npx eslint:*)",
-      "Bash(git rm:*)"
+      "Bash(git rm:*)",
+      "Bash(npm run test:coverage:*)",
+      "Bash(git branch:*)",
+      "Bash(gh:*)"
     ]
   }
 }
